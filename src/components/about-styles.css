@@ -1,0 +1,25 @@
+.PopoverTrigger {
+  background-color: white;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.PopoverContent {
+  border-radius: 4px;
+  padding: 20px;
+  width: 260px;
+  background-color: white;
+}
+
+.PopoverArrow {
+  fill: white;
+}
+
+.Toggler {
+  width: 28px;
+  height: 28px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
