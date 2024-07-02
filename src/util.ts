@@ -44,7 +44,7 @@ export function makeGeoJSON(urmData: string): FeatureCollection {
   });
 
   return featureCollection;
-};
+}
 
 /**
  * Construct an HTML string to render to the Maplibre Popup.
@@ -66,7 +66,7 @@ export function makeDescription(fields: MapGeoJSONFeature["properties"]): string
     confirmation_source,
   } = fields;
 
-  let popupText = `<p><strong>Category</strong>: ${preliminary_risk_category}</p>
+  const popupText = `<p><strong>Category</strong>: ${preliminary_risk_category}</p>
     <p><strong>Neighborhood</strong>: ${neighborhood}</p>
     <p><strong>Address</strong>: ${address}, ${city}, ${state}, ${zip_code}</p>
     <p><strong>Year Built</strong>: ${year_built}</p>

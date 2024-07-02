@@ -74,7 +74,7 @@ function MaplibreMap() {
   }
 
   useEffect(() => {
-    let protocol = new Protocol();
+    const protocol = new Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
 
     if (mapGL.current) {
