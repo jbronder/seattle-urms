@@ -1,16 +1,34 @@
 import { 
   Point,
   Feature, 
-  FeatureCollection, 
-  GeoJsonProperties 
+  FeatureCollection,
+  Geometry, 
+  GeoJsonProperties,
 } from "geojson";
 import { MapGeoJSONFeature } from "maplibre-gl";
+
+interface BuildingEntry {
+  preliminary_risk_category: string;
+  neighborhood: string;
+  address: string;
+  city: string;
+  state: string;
+  zip_code: string;
+  year_built: string;
+  no_stories: string;
+  retrofit_level: string,
+  building_use: string,
+  estimated_number_of_occupants: string,
+  confirmation_source: string,
+  geocoded_column: Geometry,
+}
+
 
 /**
  * Build a GeoJSON Feature.
  * @param entry an API data entry
  */
-function makeFeature(entry: any): Feature {
+function makeFeature(entry: BuildingEntry): Feature {
   const feature: Feature = {
     type: "Feature",
     geometry: entry.geocoded_column as Point,
@@ -40,7 +58,7 @@ export function makeGeoJSON(urmData: string): FeatureCollection {
   };
 
   dataObj.forEach((entry: object) => {
-    featureCollection.features.push(makeFeature(entry));
+    featureCollection.features.push(makeFeature(entry as BuildingEntry));
   });
 
   return featureCollection;
