@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef } from "react";
+import {useEffect, useRef } from "react";
 import maplibregl, { FilterSpecification } from "maplibre-gl";
 import { Protocol } from "pmtiles";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -20,7 +20,6 @@ interface RiskFilter {
 function MaplibreMap() {
   const mapGLContainer = useRef<HTMLDivElement | null>(null);
   const mapGL = useRef<maplibregl.Map | null>(null);
-  //const [isFilterOn, setIsFilterOn] = useState<boolean>(true);
   const rf: RiskFilter = {
     criticalRisk: true,
     highRisk: true,
