@@ -92,7 +92,7 @@ function MaplibreMap() {
         sources: {
           protomaps: {
             type: "vector",
-            url: `pmtiles://${location.toString()}seattle.pmtiles`,
+            url: `pmtiles://${location.toString()}/seattle.pmtiles`,
             attribution: '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
           }
         },
