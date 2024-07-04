@@ -33,16 +33,19 @@ function MaplibreMap() {
       switch (k) {
         case "criticalRisk":
           if (v) {
+            // @ts-ignore
             pointFilters.push(["==", ["get", "preliminary_risk_category"], "Critical Risk"]);
           }
           break;
         case "highRisk":
           if (v) {
+            // @ts-ignore
             pointFilters.push(["==", ["get", "preliminary_risk_category"], "High Risk"]);
           }
           break;
         case "mediumRisk":
           if (v) {
+            // @ts-ignore
             pointFilters.push(["==", ["get", "preliminary_risk_category"], "Medium Risk"]);
           }
           break;
@@ -128,6 +131,7 @@ function MaplibreMap() {
 
       // enable popup functionality for a single data point
       mapGL.current!.on('click', 'point', (e) => {
+        //@ts-ignore
         const coordinates = e.features![0].geometry.coordinates.slice();
         const description = makeDescription(e.features![0].properties);
 
