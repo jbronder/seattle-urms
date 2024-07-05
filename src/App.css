@@ -2,11 +2,6 @@
 
 :root {
   font-family: "Roboto", sans-serif;
-  /* --color1: #03045e;
-  --color2: #0077b6;
-  --color3: #00b4d8;
-  --color4: #90e0ef;
-  --color5: #caf0f8; */
   --color1: #ef476f;
   --color2: #ffd166;
   --color3: #06d6a0;
@@ -26,4 +21,3 @@
 .header-cont h1 {
   font-size: 24px;
 }
-
