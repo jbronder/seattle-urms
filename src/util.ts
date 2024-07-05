@@ -23,7 +23,6 @@ interface BuildingEntry {
   geocoded_column: Geometry,
 }
 
-
 /**
  * Build a GeoJSON Feature.
  * @param entry an API data entry
@@ -96,4 +95,3 @@ export function makeDescription(fields: MapGeoJSONFeature["properties"]): string
 
   return popupText;
 }
-
