@@ -8,7 +8,7 @@ function AboutPopover() {
       <Popover.Trigger className="PopoverTrigger">About</Popover.Trigger>
       <Popover.Portal>
         <Popover.Content className="PopoverContent">
-          <p>This is a map using the current data set (as of March 2024) that
+          <p>This is a map using the current data set (as of July 2024) that
           the City of Seattle has identified as URM buildings.</p>
           <p>What is a URM? A URM stands for Unreinforced Masonry building</p>
           <a href="https://www.seattle.gov/emergency-management/hazards/unreinforced-masonry-buildings-(urm)-">More URM Info</a>
