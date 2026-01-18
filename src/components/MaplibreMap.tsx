@@ -135,13 +135,25 @@ function MaplibreMap() {
 
       // adds the data as a layer to the map
       mapGL.current!.addLayer({
-        'id': 'point',
-        'type': 'circle',
-        'source': 'point',
-        'paint': {
-            'circle-radius': 5,
-            'circle-color': '#118AB2' 
-        }
+        "id": "point",
+        "type": "circle",
+        "source": "point",
+        "paint": {
+          "circle-radius": 5,
+          "circle-stroke-width": 0.5,
+          "circle-stroke-color": "#000000",
+          "circle-color": [
+            "match",
+            ["get", "VULNERABILITY_CLASSIFICATION"],
+            "Critical",
+            "#ef476f",
+            "High",
+            "#F78C6A",
+            "Medium",
+            "#ffd166",
+            "#118AB2", // Fallback color for any unclassified buildings.
+          ],
+        },
       });
 
       // enable popup functionality for a single data point
