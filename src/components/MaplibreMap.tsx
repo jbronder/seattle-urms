@@ -1,15 +1,14 @@
-import {useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import maplibregl, { FilterSpecification } from "maplibre-gl";
 import { Protocol } from "pmtiles";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./maplibremap.css";
 import layers from "protomaps-themes-base";
+import FilterController from "./FilterController.tsx";
+import { makeDescription } from "../util.js";
 
-import FilterController from './FilterController.tsx';
-
-// for development only
-import outData from "../assets/out.json?raw";
-import { makeGeoJSON, makeDescription } from "../util.js";
+const URM_DATA_URL =
+  "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/SDCI_Unreinforced_Masonry_Buildings/FeatureServer/1/query?outFields=*&where=1%3D1&f=geojson";
 
 interface RiskFilter {
   criticalRisk: boolean;
@@ -20,6 +19,8 @@ interface RiskFilter {
 function MaplibreMap() {
   const mapGLContainer = useRef<HTMLDivElement | null>(null);
   const mapGL = useRef<maplibregl.Map | null>(null);
+  const [urmData, setURMData] = useState<string>("");
+
   const rf: RiskFilter = {
     criticalRisk: true,
     highRisk: true,
@@ -76,13 +77,15 @@ function MaplibreMap() {
   }
 
   useEffect(() => {
+    fetch(URM_DATA_URL)
+      .then((res) => res.text())
+      .then((text) => setURMData(text), (err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
     const protocol = new Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
 
-    if (mapGL.current) {
-      return;
-    }
-    
     mapGL.current = new maplibregl.Map({
       container: mapGLContainer.current!,
       //style: "https://demotiles.maplibre.org/style.json",
@@ -113,9 +116,9 @@ function MaplibreMap() {
     mapGL.current.on('load', () => {
 
       // supplies the map the data points from the API
-      mapGL.current!.addSource('point', {
-        'type': 'geojson',
-        'data': makeGeoJSON(outData)
+      mapGL.current!.addSource("point", {
+        "type": "geojson",
+        "data": JSON.parse(urmData),
       });
 
       // adds the data as a layer to the map
@@ -147,13 +150,12 @@ function MaplibreMap() {
           .setHTML(description)
           .addTo(mapGL.current!);
       });
-
     });
 
     return () => {
       maplibregl.removeProtocol("pmtiles");
-    }
-  }, []);
+    };
+  }, [urmData]);
 
   return (
     <>

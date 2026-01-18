@@ -65,33 +65,62 @@ export function makeGeoJSON(urmData: string): FeatureCollection {
 
 /**
  * Construct an HTML string to render to the Maplibre Popup.
- * @param fields 
+ * @param fields - GeoJSON properties of a `Feature`
+ * @returns information describing a URM building
  */
-export function makeDescription(fields: MapGeoJSONFeature["properties"]): string {
+export function makeDescription(
+  fields: MapGeoJSONFeature["properties"],
+): string {
   const {
-    preliminary_risk_category,
-    neighborhood,
-    address,
-    city,
-    state,
-    zip_code,
-    year_built,
-    no_stories,
-    retrofit_level,
-    building_use,
-    estimated_number_of_occupants,
-    confirmation_source,
+    COMPLIANCE_METHOD,
+    CONFIRMED_RETROFIT,
+    COUNCIL_DISTRICT,
+    ECA_LIQUEFACTION,
+    ECA_POTENTIAL_SLIDE,
+    ECA_STEEP_SLOPE,
+    MAF_ADDRESS,
+    NEIGHBORHOOD,
+    //OBJECTID,
+    OCCUPANCY,
+    OCCUPANT_LOAD,
+    STORIES,
+    VULNERABILITY_CLASSIFICATION,
+    YEAR_BUILT,
   } = fields;
 
-  const popupText = `<p><strong>Category</strong>: ${preliminary_risk_category}</p>
-    <p><strong>Neighborhood</strong>: ${neighborhood}</p>
-    <p><strong>Address</strong>: ${address}, ${city}, ${state}, ${zip_code}</p>
-    <p><strong>Year Built</strong>: ${year_built}</p>
-    <p><strong>Stories</strong>: ${no_stories}</p>
-    <p><strong>Retrofit Level</strong>: ${retrofit_level}</p>
-    <p><strong>Building Use</strong>: ${building_use}</p>
-    <p><strong>Estimated Occupant Count</strong>: ${estimated_number_of_occupants}</p>
-    <p><strong>Confirmation Source</strong>: ${confirmation_source}</p>`; 
+  let complianceText = "Unknown";
+  switch (COMPLIANCE_METHOD) {
+    case "1":
+      complianceText = "Substantial Alteration per SEBC Section 304.4.2";
+      break;
+    case "2":
+      complianceText = "Alternate Method per SEBC Appendix Chapter 6";
+      break;
+    case "3a":
+      complianceText = "Completed substantial alteration permitted between 09/16/1996- 04/24/2009 using 1994 or later edition of SEBC";
+      break;
+    case "3b":
+      complianceText = "Completed substantial alteration permitted between 04/24/2009-11/15/2024 using the 2006 or later edition of SEBC"
+      break;
+    case "3c":
+      complianceText = "Other, as approved by Code Official";
+      break;
+  }
 
+  const popupText =
+    `<p><strong>Vulnerability Classification</strong>: ${VULNERABILITY_CLASSIFICATION}</p>
+    <p><strong>Liquefaction Prone?</strong>: ${ECA_LIQUEFACTION}</p>
+    <p><strong>Steep Slope?</strong>: ${ECA_STEEP_SLOPE}</p>
+    <p><strong>Potential Slide Area?</strong>: ${ECA_POTENTIAL_SLIDE}</p>
+    <p><strong>Neighborhood</strong>: ${NEIGHBORHOOD}</p>
+    <p><strong>Address</strong>: ${MAF_ADDRESS}</p>
+    <p><strong>Year Built</strong>: ${YEAR_BUILT}</p>
+    <p><strong>Stories</strong>: ${STORIES}</p>
+    <p><strong>Confirmed Retrofit</strong>: ${CONFIRMED_RETROFIT}</p>
+    <p><strong>Compliance Method</strong>: ${complianceText}</p>
+    <p><strong>Building Use</strong>: ${OCCUPANCY}</p>
+    <p><strong>Estimated Occupant Count</strong>: ${OCCUPANT_LOAD}</p>
+    <p><strong>Council District</strong>: ${COUNCIL_DISTRICT}</p>
+    `;
   return popupText;
 }
