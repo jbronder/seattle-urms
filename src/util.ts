@@ -1,9 +1,9 @@
-import { 
-  Point,
-  Feature, 
+import {
+  Feature,
   FeatureCollection,
-  Geometry, 
   GeoJsonProperties,
+  Geometry,
+  Point,
 } from "geojson";
 import { MapGeoJSONFeature } from "maplibre-gl";
 
@@ -16,11 +16,11 @@ interface BuildingEntry {
   zip_code: string;
   year_built: string;
   no_stories: string;
-  retrofit_level: string,
-  building_use: string,
-  estimated_number_of_occupants: string,
-  confirmation_source: string,
-  geocoded_column: Geometry,
+  retrofit_level: string;
+  building_use: string;
+  estimated_number_of_occupants: string;
+  confirmation_source: string;
+  geocoded_column: Geometry;
 }
 
 /**
@@ -50,10 +50,10 @@ function makeFeature(entry: BuildingEntry): Feature {
  */
 export function makeGeoJSON(urmData: string): FeatureCollection {
   const dataObj: object[] = JSON.parse(urmData);
-  
+
   const featureCollection: FeatureCollection = {
     type: "FeatureCollection",
-    features: []
+    features: [],
   };
 
   dataObj.forEach((entry: object) => {

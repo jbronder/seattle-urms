@@ -25,11 +25,11 @@ function MaplibreMap() {
     criticalRisk: true,
     highRisk: true,
     mediumRisk: true,
-  }
+  };
 
   function runRiskFilters(rf: RiskFilter) {
-    mapGL.current?.setFilter('point'); 
-    const pointFilters: FilterSpecification = ['any'];
+    mapGL.current?.setFilter("point");
+    const pointFilters: FilterSpecification = ["any"];
     for (const [k, v] of Object.entries(rf)) {
       switch (k) {
         case "criticalRisk":
@@ -64,24 +64,24 @@ function MaplibreMap() {
           break;
       }
     }
-    mapGL.current?.setFilter('point', pointFilters);
+    mapGL.current?.setFilter("point", pointFilters);
   }
 
-  function handleCriticalFilter(checkCondition: (boolean | 'indeterminate')) {
+  function handleCriticalFilter(checkCondition: boolean | "indeterminate") {
     if (typeof checkCondition !== "string") {
       rf.criticalRisk = checkCondition;
       runRiskFilters(rf);
     }
   }
 
-  function handleHighFilter(checkCondition: (boolean | 'indeterminate')) {
+  function handleHighFilter(checkCondition: boolean | "indeterminate") {
     if (typeof checkCondition !== "string") {
       rf.highRisk = checkCondition;
       runRiskFilters(rf);
     }
   }
 
-  function handleMediumFilter(checkCondition: (boolean | 'indeterminate')) {
+  function handleMediumFilter(checkCondition: boolean | "indeterminate") {
     if (typeof checkCondition !== "string") {
       rf.mediumRisk = checkCondition;
       runRiskFilters(rf);
@@ -108,25 +108,25 @@ function MaplibreMap() {
           protomaps: {
             type: "vector",
             url: `pmtiles://${location.toString()}/seattle.pmtiles`,
-            attribution: '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
-          }
+            attribution:
+              '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
+          },
         },
-        layers: layers("protomaps", "light")
+        layers: layers("protomaps", "light"),
       },
-      center:  [-122.337059, 47.6335315],
+      center: [-122.337059, 47.6335315],
       zoom: 12,
       maxBounds: [
-        [-122.451042,47.509988],
-        [-122.223076,47.757075]
-      ]
+        [-122.451042, 47.509988],
+        [-122.223076, 47.757075],
+      ],
     });
 
     // add on screen zoom and north-orientation
-    mapGL.current.addControl(new maplibregl.NavigationControl(), 'bottom-left');
+    mapGL.current.addControl(new maplibregl.NavigationControl(), "bottom-left");
 
     // loading building points to the map
-    mapGL.current.on('load', () => {
-
+    mapGL.current.on("load", () => {
       // supplies the map the data points from the API
       mapGL.current!.addSource("point", {
         "type": "geojson",
@@ -157,7 +157,7 @@ function MaplibreMap() {
       });
 
       // enable popup functionality for a single data point
-      mapGL.current!.on('click', 'point', (e) => {
+      mapGL.current!.on("click", "point", (e) => {
         //@ts-ignore
         const coordinates = e.features![0].geometry.coordinates.slice();
         const description = makeDescription(e.features![0].properties);
@@ -169,7 +169,7 @@ function MaplibreMap() {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new maplibregl.Popup({ maxWidth: "500px", className: 'my-popup' })
+        new maplibregl.Popup({ maxWidth: "500px", className: "my-popup" })
           .setLngLat(coordinates)
           .setHTML(description)
           .addTo(mapGL.current!);
@@ -187,7 +187,7 @@ function MaplibreMap() {
         <div ref={mapGLContainer} className="map" />
       </div>
       <div className="filter-ctrl-cont">
-        <FilterController 
+        <FilterController
           fnCrCb={handleCriticalFilter}
           fnHrCb={handleHighFilter}
           fnMrCb={handleMediumFilter}

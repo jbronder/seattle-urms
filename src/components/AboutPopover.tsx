@@ -1,8 +1,7 @@
-import * as Popover from '@radix-ui/react-popover';
-import './about-styles.css';
+import * as Popover from "@radix-ui/react-popover";
+import "./about-styles.css";
 
 function AboutPopover() {
-
   return (
     <Popover.Root>
       <Popover.Trigger className="PopoverTrigger">About</Popover.Trigger>
