@@ -35,19 +35,31 @@ function MaplibreMap() {
         case "criticalRisk":
           if (v) {
             // @ts-ignore
-            pointFilters.push(["==", ["get", "preliminary_risk_category"], "Critical Risk"]);
+            pointFilters.push([
+              "==",
+              ["get", "VULNERABILITY_CLASSIFICATION"],
+              "Critical",
+            ]);
           }
           break;
         case "highRisk":
           if (v) {
             // @ts-ignore
-            pointFilters.push(["==", ["get", "preliminary_risk_category"], "High Risk"]);
+            pointFilters.push([
+              "==",
+              ["get", "VULNERABILITY_CLASSIFICATION"],
+              "High",
+            ]);
           }
           break;
         case "mediumRisk":
           if (v) {
             // @ts-ignore
-            pointFilters.push(["==", ["get", "preliminary_risk_category"], "Medium Risk"]);
+            pointFilters.push([
+              "==",
+              ["get", "VULNERABILITY_CLASSIFICATION"],
+              "Medium",
+            ]);
           }
           break;
       }
