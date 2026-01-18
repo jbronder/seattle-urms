@@ -16,8 +16,15 @@
   display: flex;
   padding: 5px 15px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header-cont h1 {
   font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .header-cont h1 {
+    font-size: 1em;
+  }
 }
